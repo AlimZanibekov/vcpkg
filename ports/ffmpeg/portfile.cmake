@@ -16,6 +16,7 @@ vcpkg_from_github(
         0010-Fix-x264-detection.patch
         0011-Fix-x265-detection.patch
         0012-Fix-ssl-110-detection.patch
+        0013-Fix-srt-detection.patch
 )
 
 if (SOURCE_PATH MATCHES " ")
@@ -333,6 +334,14 @@ if("zlib" IN_LIST FEATURES)
     set(ENABLE_ZLIB ${STATIC_LINKAGE})
 else()
     set(OPTIONS "${OPTIONS} --disable-zlib")
+endif()
+
+set(ENABLE_SRT OFF)
+if("srt" IN_LIST FEATURES)
+    set(OPTIONS "${OPTIONS} --enable-libsrt")
+    set(ENABLE_SRT ${STATIC_LINKAGE})
+else()
+    set(OPTIONS "${OPTIONS} --disable-libsrt")
 endif()
 
 if (VCPKG_TARGET_IS_OSX)
