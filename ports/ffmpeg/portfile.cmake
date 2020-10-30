@@ -72,8 +72,9 @@ set(_csc_PROJECT_PATH ffmpeg)
 
 file(REMOVE_RECURSE ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-dbg ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel)
 
-if("nonfree" IN_LIST FEATURES)
+if("nonfree" IN_LIST FEATURES OR (("gpl" IN_LIST FEATURES OR "version3" IN_LIST FEATURES) AND ("openssl" IN_LIST FEATURES OR "fdk-aac" IN_LIST FEATURES)))
     set(OPTIONS "${OPTIONS} --enable-nonfree")
+    
 endif()
 
 if("gpl" IN_LIST FEATURES)

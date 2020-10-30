@@ -1,15 +1,20 @@
 diff --git a/configure b/configure
-index 5244ede..eb27483 100755
+index 5244ede..e1d5e43 100755
 --- a/configure
 +++ b/configure
-@@ -6398,7 +6398,9 @@ fi
+@@ -6398,7 +6398,13 @@ fi
  enabled libsoxr           && require libsoxr soxr.h soxr_create -lsoxr -lm
  enabled libssh            && require_pkg_config libssh libssh libssh/sftp.h sftp_init
  enabled libspeex          && require_pkg_config libspeex speex speex/speex.h speex_decoder_init
 -enabled libsrt            && require_pkg_config libsrt "srt >= 1.3.0" srt/srt.h srt_socket
-+enabled libsrt            && { check_pkg_config libsrt "srt >= 1.3.0" srt/srt.h srt_socket || 
-+                             { require libsrt srt/srt.h srt_socket "-lsrt -ldl -lstdc++ -lssl -lcrypto" &&
-+                               warn "using libsrt without pkg-config"; } }
++enabled libsrt            && { check_pkg_config libsrt "srt >= 1.3.0" srt/srt.h srt_socket ||
++                             { check_lib libsrt srt/srt.h srt_socket "-lsrt -ldl -lstdc++ -lssl -lcrypto" ||
++                               check_lib libsrt srt/srt.h srt_socket "-lsrt -lpthreadVC3 -llibssl -llibcrypto -lws2_32 -lgdi32 -lcrypt32 -lAdvapi32 -lUser32" ||
++                               check_lib libsrt srt/srt.h srt_socket "-lsrt -lpthreadVC3d -llibssl -llibcrypto -lws2_32 -lgdi32 -lcrypt32 -lAdvapi32 -lUser32" ||
++                               check_lib libsrt srt/srt.h srt_socket "-lsrt_static -lpthreadVC3 -llibssl -llibcrypto -lws2_32 -lgdi32 -lcrypt32 -lAdvapi32 -lUser32" ||
++                               check_lib libsrt srt/srt.h srt_socket "-lsrt_static -lpthreadVC3d -llibssl -llibcrypto -lws2_32 -lgdi32 -lcrypt32 -lAdvapi32 -lUser32" ||
++                               die "ERROR: libsrt not found"; } }
  enabled libtensorflow     && require libtensorflow tensorflow/c/c_api.h TF_Version -ltensorflow
  enabled libtesseract      && require_pkg_config libtesseract tesseract tesseract/capi.h TessBaseAPICreate
  enabled libtheora         && require libtheora theora/theoraenc.h th_info_init -ltheoraenc -ltheoradec -logg
+ 

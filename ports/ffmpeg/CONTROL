@@ -139,5 +139,5 @@ Build-Depends: zlib
 Description: zlib support in ffmpeg
 
 Feature: srt
-Build-Depends: libsrt, openssl
+Build-Depends: libsrt, ffmpeg[core,openssl]
 Description: srt support in ffmpeg
