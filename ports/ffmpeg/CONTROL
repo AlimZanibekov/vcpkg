@@ -67,7 +67,7 @@ Build-Depends: libiconv
 Description: iconv support in ffmpeg
 
 Feature: fdk-aac
-Build-Depends: fdk-aac, ffmpeg[core,nonfree]
+Build-Depends: fdk-aac
 Description: AAC de/encoding via libfdk-aac support in ffmpeg
 
 Feature: lzma
@@ -87,7 +87,7 @@ Build-Depends: opencl
 Description: OpenCL processing support in ffmpeg
 
 Feature: openssl
-Build-Depends: openssl, ffmpeg[core,nonfree]
+Build-Depends: openssl
 Description: openssl support in ffmpeg
 
 Feature: opus
